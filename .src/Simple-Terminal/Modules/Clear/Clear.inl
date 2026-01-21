@@ -15,6 +15,7 @@ namespace{
 }
     static const Terminal::Module mod(
         "clear",
+        "Clears The Entire Terminal",
         [](std::string_view args){
             std::system(clearStr.data());
         }

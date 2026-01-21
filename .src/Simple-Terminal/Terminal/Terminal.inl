@@ -39,14 +39,16 @@ namespace SimpleTerminal{
     }
     const Terminal::Module Terminal::helpMod(
         "help",
+        "Prints All Modules And Their Brief Descriptions",
         [](std::string_view args){
             std::printf("Loaded modules:\n");
             for(const auto& [name, mod] : Terminal::hashTable_)
-                std::printf("  %s\n", name.c_str());
+                std::printf("  %-15s -%s\n", name.c_str(), mod->brief.c_str());
         }
     );
     const Terminal::Module Terminal::exitMod(
         "exit",
+        "Exits The Application",
         [](std::string_view args){
             std::exit(0);
         }

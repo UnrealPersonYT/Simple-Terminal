@@ -8,6 +8,7 @@ namespace Modules{
 namespace System{
     static const Terminal::Module mod(
         "sys",
+        "Writes Arguments To OS's Cmd/Shell",
         [](std::string_view args){
             std::system(args.data());
         }

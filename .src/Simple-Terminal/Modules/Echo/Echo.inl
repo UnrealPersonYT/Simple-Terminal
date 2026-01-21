@@ -8,6 +8,7 @@ namespace Modules{
 namespace Echo{
     static const Terminal::Module mod(
         "echo",
+        "Prints Given Arguments To Terminal",
         [](std::string_view args){
             std::printf("%.*s\n", static_cast<int>(args.size()), args.data());
         }

@@ -15,10 +15,12 @@ namespace SimpleTerminal{
         class Module{
         public:
             /// @brief Constructor
-            Module(const std::string& Command, const std::function<void(std::string_view)>& Digest)noexcept:
-                                      command(Command),                                     digest(Digest){}
+            Module(const std::string& Command, const std::string& Brief, const std::function<void(std::string_view)>& Digest)noexcept:
+                                      command(Command),           brief(Brief),                                       digest(Digest){}
             /// @brief Modules command for quick hashing lookup via hash-table
             const std::string command;
+            /// @brief A brief description of the function for the help command
+            const std::string brief;
             /// @brief Digests an argument string
             const std::function<void(const std::string_view)> digest;
         };
