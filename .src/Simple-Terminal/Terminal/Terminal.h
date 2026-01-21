@@ -32,14 +32,9 @@ namespace SimpleTerminal{
     private:
         /// @brief Terminals help module for listing all loaded modules
         static const Module helpMod;
-        /// @brief Terminals exit module for exiting the application
-        static const Module exitMod;
         /// @brief Hash table for fast cmd detection
-        /// @note Pre-filled with help & exit modules
-        inline static std::unordered_map<std::string, const Module*> hashTable_ = {
-            {"help", &helpMod},
-            {"exit", &exitMod}
-        };
+        /// @note Pre-filled with help module
+        inline static std::unordered_map<std::string, const Module*> hashTable_ = {{"help", &helpMod}};
         /// @brief Error messages array for fast error handling
         inline static constexpr const char* errMessages[] = {
             "Name(noErr)\nDesc(No Error)\n",

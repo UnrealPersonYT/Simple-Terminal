@@ -46,11 +46,4 @@ namespace SimpleTerminal{
                 std::printf("  %-15s -%s\n", name.c_str(), mod->brief.c_str());
         }
     );
-    const Terminal::Module Terminal::exitMod(
-        "exit",
-        "Exits The Application",
-        [](std::string_view args){
-            std::exit(0);
-        }
-    );
 }   // namespace SimpleTerminal
