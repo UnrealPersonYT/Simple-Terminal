@@ -35,13 +35,6 @@ namespace SimpleTerminal{
         /// @brief Hash table for fast cmd detection
         /// @note Pre-filled with help module
         inline static std::unordered_map<std::string, const Module*> hashTable_ = {{"help", &helpMod}};
-        /// @brief Error messages array for fast error handling
-        inline static constexpr const char* errMessages[] = {
-            "Name(noErr)\nDesc(No Error)\n",
-            "Name(invCmd)\nDesc(No Module Found For Given Command)\n",
-            "Name(ovlMod)\nDesc(During Module Implementation Overlapping Module Found)\n",
-            "Name(nullPtr)\nDesc(Function argument was a null pointer)\n"
-        };
     };
 }   // namespace SimpleTerminal
 
