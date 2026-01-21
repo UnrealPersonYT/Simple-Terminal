@@ -7,8 +7,8 @@ i32 main(){
     while(true){
         std::string inputLine;
         std::cout << "Simple-Terminal: ";
-        std::getline(std::cin, inputLine); // Read entire line into std::string
-        const std::string_view inputView(inputLine); // Create a view over the string
+        std::getline(std::cin, inputLine);
+        const std::string_view inputView(inputLine);
         Terminal::digest(inputView);
     }
     return 0;
