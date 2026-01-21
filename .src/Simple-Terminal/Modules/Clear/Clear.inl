@@ -6,10 +6,17 @@
 namespace SimpleTerminal{
 namespace Modules{
 namespace Clear{
+namespace{
+    #ifdef _WIN32
+        inline constexpr std::string_view clearStr = "cls";
+    #else
+        inline constexpr std::string_view clearStr = "clear";
+    #endif
+}
     static const Terminal::Module mod(
         "clear",
         [](std::string_view args) -> const void*{
-            std::printf("\033[2J\033[H");
+            std::system(clearStr.data());
             return nullptr; // No error
         },
         [](const void* err){ // Not possible to reach
