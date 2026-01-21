@@ -9,11 +9,11 @@ TARGET := Simple-Terminal.exe
 
 # Detect compiler and set flags
 ifeq ($(findstring g++,$(CXX)),g++)
-    CXXFLAGS := -Wall -g -O3
+    CXXFLAGS := -Wall -O3 -s
 else ifeq ($(findstring clang++,$(CXX)),clang++)
-    CXXFLAGS := -Wall -g -O3
+    CXXFLAGS := -Wall -O3 -s
 else ifeq ($(findstring cl,$(CXX)),cl)
-    CXXFLAGS := /W3 /O2 /EHsc
+    CXXFLAGS := /W3 /O2 /EHsc /GL /MD /Gy
 endif
 
 # Compile the executable
