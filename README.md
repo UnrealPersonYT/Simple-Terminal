@@ -12,4 +12,4 @@ Work in progress / experimental.
 MIT
 
 ## Examples
-Check Either Echo.inl or Clear.inl To See How To Implement A Module
+Check Any Module To See How They Are Implemented
