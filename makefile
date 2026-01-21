@@ -3,9 +3,17 @@
 # Compiler (default to g++)
 CXX ?= g++
 
-# Source files
+# Source file
 SRC := .src/main.cpp
-TARGET := Simple-Terminal.exe
+
+# Version
+VERSION = v1.0.0
+
+# Target executable with version in the name if not defined
+TARGET ?= Simple-Terminal-$(VERSION)
+ifeq ($(OS),Windows_NT)
+    TARGET := $(TARGET).exe
+endif
 
 # Detect compiler and set flags
 ifeq ($(findstring g++,$(CXX)),g++)

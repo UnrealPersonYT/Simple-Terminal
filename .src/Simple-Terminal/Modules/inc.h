@@ -5,3 +5,4 @@
 #include "Echo/inc.h"
 #include "Clear/inc.h"
 #include "System/inc.h"
+#include "Version/inc.h"
