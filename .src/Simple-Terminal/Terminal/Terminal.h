@@ -11,29 +11,22 @@ namespace SimpleTerminal{
     /// @brief Main terminal class for easy module implementation
     class Terminal{
     public:
-        // Terminal error codes for easier error handling
-        enum Error : u8;
         /// @brief Main module class for implementing modules to a terminal
         class Module{
         public:
             /// @brief Constructor
-            Module(const std::string& Command, const std::function<const void*(std::string_view)>& Digest, const std::function<void(const void* const)>& Handler)noexcept:
-                                      name(Command),                                               digest(Digest),                                       handler(Handler){}
-            /// @brief Modules name for quick hashing lookup via hash-table
-            const std::string name;
+            Module(const std::string& Command, const std::function<void(std::string_view)>& Digest)noexcept:
+                                      command(Command),                                     digest(Digest){}
+            /// @brief Modules command for quick hashing lookup via hash-table
+            const std::string command;
             /// @brief Digests an argument string
-            const std::function<const void*(const std::string_view)> digest;
-            /// @brief Handles modules error block for error reporting & handling
-            const std::function<void(const void* const)> handler;
+            const std::function<void(const std::string_view)> digest;
         };
         /// @brief  Implements a constant module to the terminal
-        /// @return Terminal error code
-        static Error implement(const Module* const mod);
+        /// @return False if command name already has a module
+        static bool implement(const Module* const mod);
         /// @brief  Digests a input string to its module else handles error
-        /// @return Terminal error code
-        static Error digest(const std::string_view input);
-        /// @brief Handles a terminal error code
-        static void handler(const Error err);
+        static void digest(const std::string_view input);
     private:
         /// @brief Terminals help module for listing all loaded modules
         static const Module helpMod;

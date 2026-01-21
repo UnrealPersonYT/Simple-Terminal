@@ -15,12 +15,8 @@ namespace{
 }
     static const Terminal::Module mod(
         "clear",
-        [](std::string_view args) -> const void*{
+        [](std::string_view args){
             std::system(clearStr.data());
-            return nullptr; // No error
-        },
-        [](const void* err){ // Not possible to reach
-            std::printf("Echo module error\n");
         }
     );
     namespace{

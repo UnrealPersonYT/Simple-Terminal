@@ -8,12 +8,8 @@ namespace Modules{
 namespace Echo{
     static const Terminal::Module mod(
         "echo",
-        [](std::string_view args) -> const void*{
+        [](std::string_view args){
             std::printf("%.*s\n", static_cast<int>(args.size()), args.data());
-            return nullptr; // No error
-        },
-        [](const void* err){ // Not possible to reach
-            std::printf("Echo module error\n");
         }
     );
     namespace{
