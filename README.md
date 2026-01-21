@@ -10,3 +10,6 @@ Work in progress / experimental.
 
 ## License
 MIT
+
+## Examples
+Check Either Echo.inl or Clear.inl To See How To Implement A Module
