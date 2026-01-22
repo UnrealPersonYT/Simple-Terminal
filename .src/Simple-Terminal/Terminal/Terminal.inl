@@ -120,4 +120,14 @@ namespace SimpleTerminal{
             envVars_[name] = reference;
         }
     );
+    const Terminal::Module Terminal::remMod(
+        "rev",
+        "Remove A Environment Variable",
+        [](std::string_view args){
+            if(args.empty())
+                return;
+            const std::string stringified(args);
+            envVars_.erase(stringified);
+        }
+    );
 }   // namespace SimpleTerminal

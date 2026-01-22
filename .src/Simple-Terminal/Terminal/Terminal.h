@@ -39,9 +39,13 @@ namespace SimpleTerminal{
         static const Module listMod;
         /// @brief Terminals setev module for setting environment variables
         static const Module setMod;
+        /// @brief Terminals remev module for removing environment variables
+        static const Module remMod;
         /// @brief Hash table for fast cmd detection
-        /// @note Pre-filled with help, lev, & sev modules
-        inline static std::unordered_map<std::string, const Module*> cmdLets_ = {{"help", &helpMod}, {"lev", &listMod}, {"sev", &setMod}};
+        /// @note Pre-filled with help, lev, sev, & rev modules
+        inline static std::unordered_map<std::string, const Module*> cmdLets_ = {
+            {"help", &helpMod}, {"lev", &listMod}, {"sev", &setMod}, {"rev", &remMod}
+        };
         /// @brief Hash table for fast environment variable parsing
         inline static std::unordered_map<std::string, std::string> envVars_;
     };
