@@ -30,11 +30,20 @@ namespace SimpleTerminal{
         /// @brief  Digests a input string to its module else handles error
         static void digest(const std::string_view input);
     private:
+        /// @brief Parses a string and turns environment variables to their hashed string if found
+        /// @return Returns new parsed string
+        static std::string parseVars(const std::string_view input);
         /// @brief Terminals help module for listing all loaded modules
         static const Module helpMod;
+        /// @brief Terminals listev module for listing environment variables
+        static const Module listMod;
+        /// @brief Terminals setev module for setting environment variables
+        static const Module setMod;
         /// @brief Hash table for fast cmd detection
-        /// @note Pre-filled with help module
-        inline static std::unordered_map<std::string, const Module*> hashTable_ = {{"help", &helpMod}};
+        /// @note Pre-filled with help, lev, & sev modules
+        inline static std::unordered_map<std::string, const Module*> cmdLets_ = {{"help", &helpMod}, {"lev", &listMod}, {"sev", &setMod}};
+        /// @brief Hash table for fast environment variable parsing
+        inline static std::unordered_map<std::string, std::string> envVars_;
     };
 }   // namespace SimpleTerminal
 
