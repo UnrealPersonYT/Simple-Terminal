@@ -43,8 +43,10 @@ namespace SimpleTerminal{
         return parsed;
     }
     void Terminal::digest(const std::string_view input){
-        if(input.empty()) // Reject empty strings
+        if(input.empty()){ // Reject empty strings
+            std::printf("\033[32mST %s>\033[35m", Terminal::getEnvVar("path").data());
             return;
+        }
         // Parse the string for environment variables
         const std::string parsed = parseVars(input);
         std::string_view parsedView(parsed);

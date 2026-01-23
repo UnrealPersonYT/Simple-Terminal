@@ -13,7 +13,7 @@ namespace Version{
         "version",
         "Displays Current Terminal Version",
         [](std::string_view args){
-            std::printf("Terminal Version: %u.%u.%u\n", Major, Minor, Patch);
+            std::printf("\033[32mTerminal Version: \033[35m%u.%u.%u\n", Major, Minor, Patch);
         }
     );
     namespace{

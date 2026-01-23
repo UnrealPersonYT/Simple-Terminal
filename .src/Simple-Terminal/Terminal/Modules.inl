@@ -8,18 +8,18 @@ namespace SimpleTerminal{
         "help",
         "Prints All Modules And Their Brief Descriptions",
         [](std::string_view args){
-            std::printf("Loaded Modules:\n");
+            std::printf("\033[35mLoaded Modules:\n");
             for(const auto& [name, mod] : Terminal::cmdLets_)
-                std::printf("  %-15s -%s\n", name.c_str(), mod->brief.c_str());
+                std::printf("\033[32m  %-15s -\033[35m%s\n", name.c_str(), mod->brief.c_str());
         }
     );
     const Terminal::Module Terminal::listMod(
         "lev",
         "List All Current Environment Variables",
         [](std::string_view args){
-            std::printf("Environment Variables:\n");
+            std::printf("\033[35mEnvironment Variables:\n");
             for(const auto& [name, replacement] : Terminal::envVars_)
-                std::printf("  %-15s -%s\n", name.c_str(), replacement.c_str());
+                std::printf("\033[32m  %-15s -\033[35m%s\n", name.c_str(), replacement.c_str());
         }
     );
     const Terminal::Module Terminal::setMod(

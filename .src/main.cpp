@@ -9,8 +9,8 @@ int main(){
     // ----------- Main terminal loop -----------
     while(true){
         std::string inputLine;
-        std::getline(std::cin, inputLine);
-        Terminal::digest(inputLine);
+        if(std::getline(std::cin, inputLine)) // Detect if it was actual user input
+            Terminal::digest(inputLine);
     }
     return 0;
 }
