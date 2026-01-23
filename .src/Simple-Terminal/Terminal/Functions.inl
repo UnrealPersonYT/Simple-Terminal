@@ -1,8 +1,9 @@
-/// @file  Simple-Terminal/Terminal/Terminal.inl
-/// @brief The main implementation file for The Terminal class
+/// @file  Simple-Terminal/Terminal/Functions.inl
+/// @brief The main implementation file for The Terminal class's functions
 #pragma once
 #include "Terminal.h"
 #include <cstdlib>
+#include <filesystem>
 
 namespace SimpleTerminal{
     std::string Terminal::parseVars(std::string_view input){
@@ -41,15 +42,6 @@ namespace SimpleTerminal{
         }
         return parsed;
     }
-    bool Terminal::implement(const Module* const mod){
-        if(!mod)
-            return true;
-        auto it = cmdLets_.find(mod->command);
-        if(it != cmdLets_.end())
-            return false;
-        cmdLets_.emplace(mod->command, mod);
-        return true;
-    }
     void Terminal::digest(const std::string_view input){
         // Parse the string for environment variables
         const std::string parsed = parseVars(input);
@@ -67,7 +59,7 @@ namespace SimpleTerminal{
         // Test if cmd exists in modules
         auto it = cmdLets_.find(cmd);
         if(it == cmdLets_.end()){
-            std::printf("Simple-Terminal[Error]: \"%s\" Cmdlet Not Found\n", cmd.c_str());
+            std::printf("[Error]:\n\"%s\" Cmdlet Not Found\n", cmd.c_str());
             return;
         }
         const Module* mod = it->second;
@@ -83,51 +75,19 @@ namespace SimpleTerminal{
         // Digest
         mod->digest(args);
     }
-    const Terminal::Module Terminal::helpMod(
-        "help",
-        "Prints All Modules And Their Brief Descriptions",
-        [](std::string_view args){
-            std::printf("Loaded Modules:\n");
-            for(const auto& [name, mod] : Terminal::cmdLets_)
-                std::printf("  %-15s -%s\n", name.c_str(), mod->brief.c_str());
-        }
-    );
-    const Terminal::Module Terminal::listMod(
-        "lev",
-        "List All Current Environment Variables",
-        [](std::string_view args){
-            std::printf("Environment Variables:\n");
-            for(const auto& [name, replacement] : Terminal::envVars_)
-                std::printf("  %-15s -%s\n", name.c_str(), replacement.c_str());
-        }
-    );
-    const Terminal::Module Terminal::setMod(
-        "sev",
-        "Links A Word To An Environment Variable Refrence",
-        [](std::string_view args){
-            if(args.empty())
-                return;
-            // Find first word
-            u64 pos = args.find(' ');
-            if(pos == std::string_view::npos)
-                return; // no reference provided
-            std::string name(args.substr(0, pos));
-            // Skip spaces
-            u64 valueStart = args.find_first_not_of(' ', pos);
-            if(valueStart == std::string_view::npos)
-                return;
-            std::string reference(args.substr(valueStart));
-            envVars_[name] = reference;
-        }
-    );
-    const Terminal::Module Terminal::remMod(
-        "rev",
-        "Remove A Environment Variable",
-        [](std::string_view args){
-            if(args.empty())
-                return;
-            const std::string stringified(args);
-            envVars_.erase(stringified);
-        }
-    );
+    bool Terminal::implement(const Module* const mod){
+        if(!mod)
+            return true;
+        auto it = cmdLets_.find(mod->command);
+        if(it != cmdLets_.end())
+            return false;
+        cmdLets_.emplace(mod->command, mod);
+        return true;
+    }
+    std::string Terminal::getEnvVar(const std::string_view var){
+        auto it = envVars_.find(std::string(var));
+        if(it == envVars_.end())
+            return std::string();
+        return it->second;
+    }
 }   // namespace SimpleTerminal

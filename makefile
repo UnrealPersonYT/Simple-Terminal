@@ -1,5 +1,3 @@
-# Makefile for Simple-Terminal
-
 # Compiler (default to g++)
 CXX ?= g++
 

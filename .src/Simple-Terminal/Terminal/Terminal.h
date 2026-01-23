@@ -24,11 +24,15 @@ namespace SimpleTerminal{
             /// @brief Digests an argument string
             const std::function<void(const std::string_view)> digest;
         };
+        /// @brief  Digests a input string to its module else handles error
+        static void digest(const std::string_view input);
         /// @brief  Implements a constant module to the terminal
         /// @return False if command name already has a module
         static bool implement(const Module* const mod);
-        /// @brief  Digests a input string to its module else handles error
-        static void digest(const std::string_view input);
+        /// @brief     Returns environment variable
+        /// @param var Name of environment variable
+        /// @return    Returns empty string if not found
+        static std::string getEnvVar(const std::string_view var);
     private:
         /// @brief Parses a string and turns environment variables to their hashed string if found
         /// @return Returns new parsed string
@@ -51,5 +55,6 @@ namespace SimpleTerminal{
     };
 }   // namespace SimpleTerminal
 
-/// @brief Implementation File
-#include "Terminal.inl"
+/// @brief Implementation Files
+#include "Modules.inl"
+#include "Functions.inl"
