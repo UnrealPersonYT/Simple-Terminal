@@ -5,7 +5,7 @@
 #include <string>
 #include <string_view>
 #include <functional>
-#include <cstdio>
+#include <filesystem>
 
 namespace SimpleTerminal{
     /// @brief Main terminal class for easy module implementation
@@ -33,6 +33,8 @@ namespace SimpleTerminal{
         /// @param var Name of environment variable
         /// @return    Returns empty string if not found
         static std::string getEnvVar(const std::string_view var);
+        /// @brief Initializes terminal cleanup
+        static void initializeCleanup();
     private:
         /// @brief Parses a string and turns environment variables to their hashed string if found
         /// @return Returns new parsed string
@@ -51,10 +53,14 @@ namespace SimpleTerminal{
             {"help", &helpMod}, {"lev", &listMod}, {"sev", &setMod}, {"rev", &remMod}
         };
         /// @brief Hash table for fast environment variable parsing
-        inline static std::unordered_map<std::string, std::string> envVars_;
+        /// @note Pre-filled with current path
+        inline static std::unordered_map<std::string, std::string> envVars_{
+            {"path", std::filesystem::current_path().string()}
+        };
     };
 }   // namespace SimpleTerminal
 
 /// @brief Implementation Files
 #include "Modules.inl"
 #include "Functions.inl"
+#include "Cleanup.inl"

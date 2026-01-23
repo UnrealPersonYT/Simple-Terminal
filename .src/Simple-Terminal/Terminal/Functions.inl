@@ -2,8 +2,8 @@
 /// @brief The main implementation file for The Terminal class's functions
 #pragma once
 #include "Terminal.h"
+#include <cstdio>
 #include <cstdlib>
-#include <filesystem>
 
 namespace SimpleTerminal{
     std::string Terminal::parseVars(std::string_view input){
@@ -43,6 +43,8 @@ namespace SimpleTerminal{
         return parsed;
     }
     void Terminal::digest(const std::string_view input){
+        if(input.empty()) // Reject empty strings
+            return;
         // Parse the string for environment variables
         const std::string parsed = parseVars(input);
         std::string_view parsedView(parsed);
@@ -59,7 +61,7 @@ namespace SimpleTerminal{
         // Test if cmd exists in modules
         auto it = cmdLets_.find(cmd);
         if(it == cmdLets_.end()){
-            std::printf("[Error]:\n\"%s\" Cmdlet Not Found\n", cmd.c_str());
+            std::printf("\033[31m\"%s\" Cmdlet Not Found\n", cmd.c_str());
             return;
         }
         const Module* mod = it->second;
@@ -74,6 +76,8 @@ namespace SimpleTerminal{
             args.remove_prefix(1);
         // Digest
         mod->digest(args);
+        // Print path
+        std::printf("\033[32mST %s>\033[35m", Terminal::getEnvVar("path").data());
     }
     bool Terminal::implement(const Module* const mod){
         if(!mod)

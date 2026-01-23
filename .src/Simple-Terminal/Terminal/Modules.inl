@@ -33,6 +33,11 @@ namespace SimpleTerminal{
             if(pos == std::string_view::npos)
                 return; // no reference provided
             std::string name(args.substr(0, pos));
+            static const std::string protectedVar = "path";
+            if(name == protectedVar){
+                std::printf("\033[31mTried To Edit Protected \"path\" Environment Variable:\nError Access Denied!\n");
+                return;
+            }
             // Skip spaces
             u64 valueStart = args.find_first_not_of(' ', pos);
             if(valueStart == std::string_view::npos)
@@ -50,7 +55,7 @@ namespace SimpleTerminal{
             // Cant remove path variable
             static const std::string protectedVar = "path";
             if(args == protectedVar){
-                std::printf("Tried To Remove Protected \"path\" Environment Variable:\nError Access Denied!\n");
+                std::printf("\033[31mTried To Remove Protected \"path\" Environment Variable:\nError Access Denied!\n");
                 return;
             }
             const std::string stringified(args);
